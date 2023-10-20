@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     public string min;
     public string sec;
 
+    public int lives;
+    public TMP_Text lifeText;
+
     //These private variables are initialized in the Start
     private Rigidbody rb;
     private int count;
@@ -24,11 +27,12 @@ public class PlayerController : MonoBehaviour
 
     // Audio
     public AudioClip coinSFX;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();  // access the audio source component of player
         rb = GetComponent<Rigidbody>();
         count = 0;
         SetCountText();
@@ -36,7 +40,9 @@ public class PlayerController : MonoBehaviour
         startingTime = Time.time;
         gameOver = false;
 
-        audioSource = GetComponent<AudioSource>();  // access the audio source component of player
+        lives = 3;
+        lifeText.text = "Lives: " + lives;
+
 
     }
     private void Update()
@@ -68,11 +74,12 @@ public class PlayerController : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             count++;
-            SetCountText();
 
             //PLAY SOUND EFFECT
             audioSource.clip = coinSFX;
             audioSource.Play();
+            Destroy(other.gameObject);
+            SetCountText();
 
         }
 
@@ -82,7 +89,7 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(currentSceneName);
         }
 
-        if (other.gameObject.CompareTag("Grow"))
+        if (other.gameObject.CompareTag("LifeGem"))
         {
             if (transform.localScale.x <= 2.0f)
             {
@@ -90,7 +97,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (other.gameObject.CompareTag("Shrink"))
+        if (other.gameObject.CompareTag("InvincibleGem"))
         {
             if (transform.localScale.x >= 0.5f)
             {
