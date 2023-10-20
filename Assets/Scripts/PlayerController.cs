@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private int count;
     private bool gameOver; //  bool to define game state on or off.
+    public bool invincible;
 
     // Audio
     public AudioClip coinSFX;
@@ -41,7 +42,6 @@ public class PlayerController : MonoBehaviour
         gameOver = false;
 
         lives = 3;
-        lifeText.text = "Lives: " + lives;
 
 
     }
@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
         sec = (timer % 60).ToString("f0");      // calculates seconds
 
         timeText.text = "Elapsed Time: " + min + ":" + sec;     // update UI time text
+        lifeText.text = "Lives: " + lives;
     }
 
     void FixedUpdate()
@@ -97,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("InvincibleGem"))
         {
-            //MAKE INVINCIBLE
+            Invoke("isInvincible", 10.0f);
             Destroy(other.gameObject);
         }
 
@@ -107,10 +108,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void isInvincible()
+    {
+        invincible = true;
+    }
+
+
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
-        if(count >= 2)
+        if(count >= 7)
         {
             gameOver = true; // returns true value to signal game is over
             timeText.color = Color.green;  // changes timer's color

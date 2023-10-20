@@ -12,6 +12,7 @@ TagManager:
   - Jump
   - LifeGem
   - InvincibleGem
+  - WinTrig
   layers:
   - Default
   - TransparentFX
