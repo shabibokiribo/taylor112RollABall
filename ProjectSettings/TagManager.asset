@@ -10,6 +10,8 @@ TagManager:
   - Grow
   - Door
   - Jump
+  - LifeGem
+  - InvincibleGem
   layers:
   - Default
   - TransparentFX

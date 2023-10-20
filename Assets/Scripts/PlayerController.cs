@@ -91,18 +91,14 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("LifeGem"))
         {
-            if (transform.localScale.x <= 2.0f)
-            {
-                transform.localScale *= 1.25f;    // increase scale by 25%
-            }
+            lives += 1;
+            Destroy(other.gameObject);
         }
 
         if (other.gameObject.CompareTag("InvincibleGem"))
         {
-            if (transform.localScale.x >= 0.5f)
-            {
-                transform.localScale *= 0.75f;     // decreases scale by 25%
-            }
+            //MAKE INVINCIBLE
+            Destroy(other.gameObject);
         }
 
         if (other.gameObject.CompareTag("Jump"))
