@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
         timeText.text = "Elapsed Time: " + min + ":" + sec;     // update UI time text
         lifeText.text = "Lives: " + lives;
+        lives = 3;
         if (lives <= 0)
         {
             gameOver = true; // returns true value to signal game is over
