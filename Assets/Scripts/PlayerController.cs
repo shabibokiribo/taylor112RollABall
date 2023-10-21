@@ -12,12 +12,13 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public TMP_Text countText;
     public TMP_Text winText;
+    public TMP_Text loseText;
     public TMP_Text timeText;  //  variable to display the timer text in Unity
     public float startingTime;  // variable to hold the game's starting time
     public string min;
     public string sec;
 
-    public int lives;
+    public int lives = 3;
     public TMP_Text lifeText;
 
     //These private variables are initialized in the Start
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     // Audio
     public AudioClip coinSFX;
     public AudioSource audioSource;
+    public AudioClip garf;
 
 
     void Start()
@@ -40,14 +42,12 @@ public class PlayerController : MonoBehaviour
         winText.text = "";
         startingTime = Time.time;
         gameOver = false;
-
-        lives = 3;
-
+        lifeText.text = "Lives: " + lives;
 
     }
     private void Update()
     {
-        if (gameOver) // condition that the game is NOT over; returns the false value
+        if (gameOver == false) // condition that the game is NOT over; returns the false value
             return;
         float timer = Time.time - startingTime;     // local variable to updated time
         min = ((int)timer / 60).ToString();     // calculates minutes
@@ -55,6 +55,13 @@ public class PlayerController : MonoBehaviour
 
         timeText.text = "Elapsed Time: " + min + ":" + sec;     // update UI time text
         lifeText.text = "Lives: " + lives;
+        if (lives <= 0)
+        {
+            gameOver = true; // returns true value to signal game is over
+            timeText.color = Color.red;  // changes timer's color
+            loseText.text = "You Died";
+            speed = 0;
+        }
     }
 
     void FixedUpdate()
@@ -88,11 +95,12 @@ public class PlayerController : MonoBehaviour
         {
             string currentSceneName = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene(currentSceneName);
+            loseText.text = "You Died";
         }
 
         if (other.gameObject.CompareTag("LifeGem"))
         {
-            lives += 1;
+            lives++;
             Destroy(other.gameObject);
         }
 
@@ -106,6 +114,13 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(new Vector3(0.0f, 300.0f, 0.0f));
         }
+
+        if (other.gameObject.CompareTag("Projectile"))
+        {
+            audioSource.clip = garf;
+            audioSource.Play();
+            lives--;
+        }
     }
 
     public void isInvincible()
@@ -116,13 +131,16 @@ public class PlayerController : MonoBehaviour
 
     void SetCountText()
     {
-        countText.text = "Count: " + count.ToString();
-        if(count >= 7)
+        countText.text = "Coins: " + count.ToString();
+        if(count >= 10)
         {
             gameOver = true; // returns true value to signal game is over
             timeText.color = Color.green;  // changes timer's color
             winText.text = "You win!";
             speed = 0;
         }
+        
     }
+
+
 }
