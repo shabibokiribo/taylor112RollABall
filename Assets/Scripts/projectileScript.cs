@@ -37,7 +37,7 @@ public class projectileScript : MonoBehaviour
     void Update()
     {
         //destory projectile after 10 seconds
-        Destroy(projectile, 10);
+        Destroy(projectile, 5);
 
         var step = 5.0f * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, playerTarget.position, step);

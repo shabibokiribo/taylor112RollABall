@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public string min;
     public string sec;
 
-    public int lives = 3;
+    int lives = 3;
     public TMP_Text lifeText;
 
     //These private variables are initialized in the Start
@@ -91,6 +91,18 @@ public class PlayerController : MonoBehaviour
             SetCountText();
 
         }
+        if (other.gameObject.tag == "LevelCoin")
+        {
+            other.gameObject.SetActive(false);
+            count++;
+
+            //PLAY SOUND EFFECT
+            audioSource.clip = coinSFX;
+            audioSource.Play();
+            Destroy(other.gameObject);
+            SetCountText();
+            SceneManager.LoadScene(1);
+        }
 
         if (other.gameObject.CompareTag("DeathZone"))
         {
@@ -121,6 +133,7 @@ public class PlayerController : MonoBehaviour
             audioSource.clip = garf;
             audioSource.Play();
             lives--;
+            Destroy(other.gameObject);
         }
     }
 
@@ -133,7 +146,7 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Coins: " + count.ToString();
-        if(count >= 10)
+        if(count >= 20)
         {
             gameOver = true; // returns true value to signal game is over
             timeText.color = Color.green;  // changes timer's color

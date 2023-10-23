@@ -15,6 +15,7 @@ TagManager:
   - WinTrig
   - Projectile
   - Tower
+  - LevelCoin
   layers:
   - Default
   - TransparentFX
