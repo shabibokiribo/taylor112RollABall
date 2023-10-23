@@ -13,12 +13,13 @@ public class PlayerController : MonoBehaviour
     public TMP_Text countText;
     public TMP_Text winText;
     public TMP_Text loseText;
+    public TMP_Text errorText;
     public TMP_Text timeText;  //  variable to display the timer text in Unity
     public float startingTime;  // variable to hold the game's starting time
     public string min;
     public string sec;
 
-    int lives = 3;
+    public int lives = 3;
     public TMP_Text lifeText;
 
     //These private variables are initialized in the Start
@@ -31,6 +32,9 @@ public class PlayerController : MonoBehaviour
     public AudioClip coinSFX;
     public AudioSource audioSource;
     public AudioClip garf;
+
+
+    bool win;
 
 
     void Start()
@@ -63,6 +67,7 @@ public class PlayerController : MonoBehaviour
             loseText.text = "You Died";
             speed = 0;
         }
+
     }
 
     void FixedUpdate()
@@ -102,6 +107,26 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
             SetCountText();
             SceneManager.LoadScene(1);
+        }
+
+        if (other.gameObject.tag == "WinCoin")
+        {
+            other.gameObject.SetActive(false);
+
+            //PLAY SOUND EFFECT
+            audioSource.clip = coinSFX;
+            audioSource.Play();
+            if (count == 9)
+            {
+                count++;
+                Destroy(other.gameObject);
+                SetCountText();
+                win = true;
+            }
+            else
+            {
+                errorText.text = "You haven't collected the other coins! come back when you have 9!";
+            }
         }
 
         if (other.gameObject.CompareTag("DeathZone"))
@@ -146,7 +171,7 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Coins: " + count.ToString();
-        if(count >= 20)
+        if(count >= 10 && win == true)
         {
             gameOver = true; // returns true value to signal game is over
             timeText.color = Color.green;  // changes timer's color

@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class projectileScript : MonoBehaviour
 {
-    //#8
+    public PlayerController psCon;
 
     //gameobject variable to assign projectile prefab in unity & player game object
     public GameObject projectile;
@@ -30,7 +30,8 @@ public class projectileScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
+        Destroy(projectile);
+        psCon.lives--;
     }
 
     // Update is called once per frame
