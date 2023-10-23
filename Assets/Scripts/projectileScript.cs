@@ -30,7 +30,7 @@ public class projectileScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Destroy(projectile);
+        //Destroy(gameObject);
         psCon.lives--;
     }
 
@@ -38,7 +38,7 @@ public class projectileScript : MonoBehaviour
     void Update()
     {
         //destory projectile after 10 seconds
-        Destroy(projectile, 5);
+        Destroy(projectile, 10);
 
         var step = 5.0f * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, playerTarget.position, step);

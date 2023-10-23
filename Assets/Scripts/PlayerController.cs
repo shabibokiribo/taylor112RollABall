@@ -160,6 +160,11 @@ public class PlayerController : MonoBehaviour
             lives--;
             Destroy(other.gameObject);
         }
+
+        if (other.gameObject.CompareTag("Truck"))
+        {
+            lives--;
+        }
     }
 
     public void isInvincible()

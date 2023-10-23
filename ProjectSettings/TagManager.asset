@@ -17,6 +17,7 @@ TagManager:
   - Tower
   - LevelCoin
   - WinCoin
+  - Truck
   layers:
   - Default
   - TransparentFX
