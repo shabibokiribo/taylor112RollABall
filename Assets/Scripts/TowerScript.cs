@@ -12,7 +12,7 @@ public class towerScript : MonoBehaviour
     void Start()
     {
         //invoke repeating to make projectile launch every 1 seconds after the first one launches after 1 second
-        InvokeRepeating("LaunchProjectile", 1.0f, 3.0f);
+        InvokeRepeating("LaunchProjectile", 2.0f, 3.0f);
     }
 
     // Update is called once per frame

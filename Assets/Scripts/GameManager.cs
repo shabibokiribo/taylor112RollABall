@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void OnClickMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void OnClickHelp()
     {
         SceneManager.LoadScene("HELP");

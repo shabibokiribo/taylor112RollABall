@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
 
     // Audio
     public AudioClip coinSFX;
+    public AudioClip gemSFX;
+    public AudioClip truckSFX;
+    public AudioClip splashSFX;
     public AudioSource audioSource;
     public AudioClip garf;
 
@@ -101,7 +104,7 @@ public class PlayerController : MonoBehaviour
             audioSource.Play();
             Destroy(other.gameObject);
             SetCountText();
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(1);
         }
 
         if (other.gameObject.tag == "WinCoin")
@@ -124,19 +127,25 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("DeathZone"))
         {
-            
-            SceneManager.LoadScene(currentSceneName);
+            audioSource.clip = splashSFX;
+            audioSource.Play();
             loseText.text = "You Died";
+            rb.isKinematic = true;
+            Invoke("restartFunc", 2);
         }
 
         if (other.gameObject.CompareTag("LifeGem"))
         {
+            audioSource.clip = gemSFX;
+            audioSource.Play();
             lives++;
             Destroy(other.gameObject);
         }
 
         if (other.gameObject.CompareTag("InvincibleGem"))
         {
+            audioSource.clip = gemSFX;
+            audioSource.Play();
             Invoke("isInvincible", 10.0f);
             Destroy(other.gameObject);
         }
@@ -157,6 +166,8 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Truck"))
         {
+            audioSource.clip = truckSFX;
+            audioSource.Play();
             lives--;
         }
 
@@ -171,6 +182,11 @@ public class PlayerController : MonoBehaviour
     public void isInvincible()
     {
         invincible = true;
+    }
+
+    public void restartFunc()
+    {
+        SceneManager.LoadScene(currentSceneName);
     }
 
 

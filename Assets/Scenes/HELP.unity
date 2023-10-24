@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -150,14 +150,14 @@ RectTransform:
   m_GameObject: {fileID: 188364531}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.240688, y: 2.240688, z: 2.240688}
+  m_LocalScale: {x: 1.7525183, y: 1.7525183, z: 1.7525183}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 914357882}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9, y: 162}
+  m_AnchoredPosition: {x: -114, y: 212}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &188364533
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Instructions
+  m_text: 'To get back home you should:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9de088d9abbf2624e9cbd7ec1edb81f6, type: 2}
   m_sharedMaterial: {fileID: 8737193695158999661, guid: 9de088d9abbf2624e9cbd7ec1edb81f6,
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -132.10869, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -869,12 +869,12 @@ MonoBehaviour:
       m_Calls: []
   m_text: '-Avoid obstacles
 
-    -Collect coins
+    -Collect all the coins
 
-    -Collect red life gems
+    -Collect red gems for
+    health
 
-    -Collect
-    green invincibility gems'
+    -Collect green gems for invincibility'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9de088d9abbf2624e9cbd7ec1edb81f6, type: 2}
   m_sharedMaterial: {fileID: 8737193695158999661, guid: 9de088d9abbf2624e9cbd7ec1edb81f6,
