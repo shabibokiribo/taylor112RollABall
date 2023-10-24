@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
             audioSource.Play();
             Destroy(other.gameObject);
             SetCountText();
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("LevelTwo");
         }
 
         if (other.gameObject.tag == "WinCoin")
