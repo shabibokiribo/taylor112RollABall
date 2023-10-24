@@ -18,6 +18,7 @@ TagManager:
   - LevelCoin
   - WinCoin
   - Truck
+  - Food
   layers:
   - Default
   - TransparentFX

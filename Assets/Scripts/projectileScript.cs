@@ -28,12 +28,6 @@ public class projectileScript : MonoBehaviour
         playerTarget = player.transform;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        //Destroy(gameObject);
-        psCon.lives--;
-    }
-
     // Update is called once per frame
     void Update()
     {

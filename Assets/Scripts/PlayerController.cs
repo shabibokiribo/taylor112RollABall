@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
 
     bool win;
+    string currentSceneName;
 
 
     void Start()
@@ -47,25 +48,21 @@ public class PlayerController : MonoBehaviour
         startingTime = Time.time;
         gameOver = false;
         lifeText.text = "Lives: " + lives;
+        currentSceneName = SceneManager.GetActiveScene().name;
 
     }
     private void Update()
     {
-        if (gameOver == false) // condition that the game is NOT over; returns the false value
-            return;
+        lifeText.text = "Lives: " + lives;
         float timer = Time.time - startingTime;     // local variable to updated time
         min = ((int)timer / 60).ToString();     // calculates minutes
         sec = (timer % 60).ToString("f0");      // calculates seconds
 
         timeText.text = "Elapsed Time: " + min + ":" + sec;     // update UI time text
-        lifeText.text = "Lives: " + lives;
-        lives = 3;
+        
         if (lives <= 0)
         {
-            gameOver = true; // returns true value to signal game is over
-            timeText.color = Color.red;  // changes timer's color
-            loseText.text = "You Died";
-            speed = 0;
+            SceneManager.LoadScene(currentSceneName);
         }
 
     }
@@ -86,7 +83,6 @@ public class PlayerController : MonoBehaviour
    
         if (other.gameObject.tag == "PickUp")
         {
-            other.gameObject.SetActive(false);
             count++;
 
             //PLAY SOUND EFFECT
@@ -98,7 +94,6 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "LevelCoin")
         {
-            other.gameObject.SetActive(false);
             count++;
 
             //PLAY SOUND EFFECT
@@ -106,18 +101,16 @@ public class PlayerController : MonoBehaviour
             audioSource.Play();
             Destroy(other.gameObject);
             SetCountText();
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
 
         if (other.gameObject.tag == "WinCoin")
         {
-            other.gameObject.SetActive(false);
-
-            //PLAY SOUND EFFECT
-            audioSource.clip = coinSFX;
-            audioSource.Play();
             if (count == 9)
             {
+                //PLAY SOUND EFFECT
+                audioSource.clip = coinSFX;
+                audioSource.Play();
                 count++;
                 Destroy(other.gameObject);
                 SetCountText();
@@ -131,7 +124,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("DeathZone"))
         {
-            string currentSceneName = SceneManager.GetActiveScene().name;
+            
             SceneManager.LoadScene(currentSceneName);
             loseText.text = "You Died";
         }
@@ -155,16 +148,24 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Projectile"))
         {
-            audioSource.clip = garf;
-            audioSource.Play();
+           
             lives--;
             Destroy(other.gameObject);
+            audioSource.clip = garf;
+            audioSource.Play();
         }
 
         if (other.gameObject.CompareTag("Truck"))
         {
             lives--;
         }
+
+        if (other.gameObject.CompareTag("Food"))
+        {
+            lives--;
+            Destroy(other.gameObject);
+        }
+
     }
 
     public void isInvincible()
@@ -176,12 +177,9 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Coins: " + count.ToString();
-        if(count >= 10 && win == true)
+        if(count >= 10)
         {
-            gameOver = true; // returns true value to signal game is over
-            timeText.color = Color.green;  // changes timer's color
-            winText.text = "You win!";
-            speed = 0;
+            SceneManager.LoadScene("WIN");
         }
         
     }
