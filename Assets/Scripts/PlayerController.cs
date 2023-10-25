@@ -97,14 +97,24 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "LevelCoin")
         {
-            count++;
 
-            //PLAY SOUND EFFECT
-            audioSource.clip = coinSFX;
-            audioSource.Play();
-            Destroy(other.gameObject);
-            SetCountText();
-            SceneManager.LoadScene("LevelTwo");
+            if (count == 9)
+            {
+                count++;
+
+                //PLAY SOUND EFFECT
+                audioSource.clip = coinSFX;
+                audioSource.Play();
+                Destroy(other.gameObject);
+                SetCountText();
+                SceneManager.LoadScene("LevelTwo");
+            }
+            else
+            {
+                errorText.text = "You haven't collected the other coins! come back when you have 9!";
+                Invoke("ErrorMessage", 3);
+            }
+        
         }
 
         if (other.gameObject.tag == "WinCoin")
@@ -122,6 +132,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 errorText.text = "You haven't collected the other coins! come back when you have 9!";
+                Invoke("ErrorMessage",3);
             }
         }
 
@@ -187,6 +198,11 @@ public class PlayerController : MonoBehaviour
     public void restartFunc()
     {
         SceneManager.LoadScene(currentSceneName);
+    }
+
+    public void ErrorMessage()
+    {
+        errorText.text = "";
     }
 
 
