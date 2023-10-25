@@ -37,7 +37,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip garf;
 
 
-    bool win;
+    public bool win = false;
+    public bool lev;
     string currentSceneName;
 
 
@@ -107,7 +108,8 @@ public class PlayerController : MonoBehaviour
                 audioSource.Play();
                 Destroy(other.gameObject);
                 SetCountText();
-                SceneManager.LoadScene("LevelTwo");
+                lev = true;
+                //SceneManager.LoadScene("LevelTwo");
             }
             else
             {
@@ -209,9 +211,11 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Coins: " + count.ToString();
-        if(count >= 10)
+        if(count >= 10 && currentSceneName == "LevelTwo")
         {
-            SceneManager.LoadScene("WIN");
+            
+         SceneManager.LoadScene("WIN");
+            
         }
         
     }
