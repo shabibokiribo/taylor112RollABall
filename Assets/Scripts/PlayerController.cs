@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public float startingTime;  // variable to hold the game's starting time
     public string min;
     public string sec;
+    public Transform playerPos;
 
     public int lives = 3;
     public TMP_Text lifeText;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip splashSFX;
     public AudioSource audioSource;
     public AudioClip garf;
+    public GameObject waterSplash;
 
 
     public bool win = false;
@@ -109,7 +111,6 @@ public class PlayerController : MonoBehaviour
                 Destroy(other.gameObject);
                 SetCountText();
                 lev = true;
-                //SceneManager.LoadScene("LevelTwo");
             }
             else
             {
@@ -143,6 +144,7 @@ public class PlayerController : MonoBehaviour
             audioSource.clip = splashSFX;
             audioSource.Play();
             loseText.text = "You Died";
+            Instantiate(waterSplash, playerPos.position, Quaternion.identity);
             rb.isKinematic = true;
             Invoke("restartFunc", 2);
         }
