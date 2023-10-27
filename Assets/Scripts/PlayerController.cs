@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
     public bool lev;
     string currentSceneName;
 
+    public TakeDamageScr damageScript;
+
 
     void Start()
     {
@@ -172,8 +174,8 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Projectile"))
         {
-           
-            lives--;
+
+            TakeDamage();
             Destroy(other.gameObject);
             audioSource.clip = garf;
             audioSource.Play();
@@ -183,12 +185,12 @@ public class PlayerController : MonoBehaviour
         {
             audioSource.clip = truckSFX;
             audioSource.Play();
-            lives--;
+            TakeDamage();
         }
 
         if (other.gameObject.CompareTag("Food"))
         {
-            lives--;
+            TakeDamage();
             Destroy(other.gameObject);
         }
 
@@ -207,6 +209,13 @@ public class PlayerController : MonoBehaviour
     public void ErrorMessage()
     {
         errorText.text = "";
+    }
+
+    public void TakeDamage()
+    {
+        lives--;
+        damageScript.StartCoroutine(damageScript.TakeDamageEffect());
+
     }
 
 

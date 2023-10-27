@@ -11855,6 +11855,7 @@ MonoBehaviour:
     type: 3}
   win: 0
   lev: 0
+  damageScript: {fileID: 1375699293}
 --- !u!54 &637989940
 Rigidbody:
   m_ObjectHideFlags: 0
