@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿//////////////////////////////////////////////////////
+// Assignment/Lab/Project: 112RollABall
+//Name: Shaniah Taylor
+//Section: 2022FA.SGD.112.2602
+//Instructor: Lydia Granholm
+// Date: 10/28/2023
+//////////////////////////////////////////////////////
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +26,14 @@ public class PlayerController : MonoBehaviour
     public string min;
     public string sec;
     public Transform playerPos;
+    //public GameObject NextLevel;
+    public TimerScr levTime;
+    public int minNum1;
+    public int minNum2;
+    public int secNum1;
+    public int secNum2;
+    public Canvas winCanvas;
+
 
     public int lives = 3;
     public TMP_Text lifeText;
@@ -26,7 +41,7 @@ public class PlayerController : MonoBehaviour
     //These private variables are initialized in the Start
     private Rigidbody rb;
     private int count;
-    private bool gameOver; //  bool to define game state on or off.
+    //private bool gameOver; //  bool to define game state on or off.
     public bool invincible;
 
     // Audio
@@ -36,7 +51,9 @@ public class PlayerController : MonoBehaviour
     public AudioClip splashSFX;
     public AudioSource audioSource;
     public AudioClip garf;
+    public AudioClip yay;
     public GameObject waterSplash;
+    public TMP_Text invincibleText;
 
 
     public bool win = false;
@@ -54,9 +71,10 @@ public class PlayerController : MonoBehaviour
         SetCountText();
         winText.text = "";
         startingTime = Time.time;
-        gameOver = false;
+        //gameOver = false;
         lifeText.text = "Lives: " + lives;
         currentSceneName = SceneManager.GetActiveScene().name;
+        winCanvas.enabled = false;
 
     }
     private void Update()
@@ -163,7 +181,9 @@ public class PlayerController : MonoBehaviour
         {
             audioSource.clip = gemSFX;
             audioSource.Play();
-            Invoke("isInvincible", 10.0f);
+            invincible = true;
+            Invoke("EndInvincible", 10);
+            invincibleText.text = "";
             Destroy(other.gameObject);
         }
 
@@ -196,9 +216,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void isInvincible()
+    public void endInvincible()
     {
-        invincible = true;
+        invincible = false;
+        invincibleText.text = "You are no longer invincible";
     }
 
     public void restartFunc()
@@ -222,12 +243,32 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Coins: " + count.ToString();
-        if(count >= 10 && currentSceneName == "LevelTwo")
+        if (currentSceneName == "Game")
         {
-            
-         SceneManager.LoadScene("WIN");
-            
+            int.TryParse(min, out minNum1);
+            int.TryParse(sec, out secNum1);
+            TimerScr.levTime.minNum1 = minNum1;
+            TimerScr.levTime.secNum1 = secNum1;
+            TimerScr.levTime.levOneTime = "Level 1 Time: " + min + ":" + sec;
         }
+        if (currentSceneName == "LevelTwo")
+        {
+            int.TryParse(min, out minNum2);
+            int.TryParse(sec, out secNum2);
+            TimerScr.levTime.minNum2 = minNum2;
+            TimerScr.levTime.secNum2 = secNum2;
+            TimerScr.levTime.levTwoTime = "Level 2 Time: " + min + ":" + sec;
+        }
+
+        if (count >= 10 && currentSceneName == "LevelTwo")
+        {
+            rb.isKinematic = true;
+            winCanvas.enabled = true;
+            audioSource.clip = yay;
+            audioSource.Play();
+
+        }
+
         
     }
 
