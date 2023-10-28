@@ -234,8 +234,11 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage()
     {
-        lives--;
-        damageScript.StartCoroutine(damageScript.TakeDamageEffect());
+        if (invincible != true)
+        {
+            lives--;
+            damageScript.StartCoroutine(damageScript.TakeDamageEffect());
+        }
 
     }
 
